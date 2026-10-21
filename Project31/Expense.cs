@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Project31
 {
@@ -20,6 +21,11 @@ namespace Project31
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
+
+        public override string ToString()
+        {
+            return $"Категория: {Category}, Сумма расхода: {Amount}, Дата создания ID: {Date}, Описание: {Description}";
+        }
 
     }
 }

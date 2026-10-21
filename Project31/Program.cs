@@ -23,10 +23,11 @@ while (true)
     Console.WriteLine("Выберите пункт:");
     Console.WriteLine("1 - Найти по ID");
     Console.WriteLine("2 - Добавить трату");   
-    Console.WriteLine("3 - Показать все");     // ИЗМЕНЕНО: новый пункт (пока заглушка)
+    Console.WriteLine("3 - Показать все");
+    Console.WriteLine("4 - Сумма расхода по категориям");
     Console.WriteLine("exit - Выход");
 
-    string choice = Console.ReadLine().ToLower();   // ИЗМЕНЕНО: Exit и EXIT тоже сработают
+    string choice = Console.ReadLine().ToLower();  
 
     if (choice == "1")
     {
@@ -102,9 +103,20 @@ while (true)
     {
         foreach (var item in expenses)
         {
-            Console.WriteLine($"{item.Id}, {item.Category}, {item.Description}, {item.Amount}, {item.Date}");
+            Console.WriteLine(item);
         }
     }
+
+    else if (choice == "4")
+    {
+        var byCategory = expenses.GroupBy(x => x.Category);
+
+        foreach (var item in byCategory)
+        {
+            Console.WriteLine($"Категория: {item.Key}, общий расход: {item.Sum(s => s.Amount)}");
+        }
+    }
+
     else if (choice == "exit")
     {
         break;
