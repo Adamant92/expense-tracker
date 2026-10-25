@@ -1,5 +1,7 @@
 ﻿using Project31;
 
+var repository = new ExpenseRepository();
+
 List<Expense> expenses = new List<Expense>();
 
 var expense1 = new Expense(1);
@@ -96,12 +98,12 @@ while (true)
 
         newExpense.Date = DateTime.Now;
 
-        expenses.Add(newExpense);   
+        repository.Add(newExpense);   
         Console.WriteLine("Трата добавлена.");
     }
     else if (choice == "3")
     {
-        foreach (var item in expenses)
+        foreach (var item in repository.GetAll())
         {
             Console.WriteLine(item);
         }
@@ -109,7 +111,7 @@ while (true)
 
     else if (choice == "4")
     {
-        var byCategory = expenses.GroupBy(x => x.Category);
+        var byCategory = repository.GetAll().GroupBy(x => x.Category);
 
         foreach (var item in byCategory)
         {
