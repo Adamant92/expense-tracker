@@ -1,21 +1,23 @@
 ﻿using Project31;
 
+var repository = new ExpenseRepository();
+
 List<Expense> expenses = new List<Expense>();
 
-var expense1 = new Expense(1);
-expense1.Category = "Еда";
-expense1.Description = "Обед в столовой";
-expense1.Amount = 100;
-expense1.Date = DateTime.Now;
+//var expense1 = new Expense(1);
+//expense1.Category = "Еда";
+//expense1.Description = "Обед в столовой";
+//expense1.Amount = 100;
+//expense1.Date = DateTime.Now;
 
-var expense2 = new Expense(2);
-expense2.Category = "Транспорт";
-expense2.Description = "Грузовики";
-expense2.Amount = 234500;
-expense2.Date = DateTime.Now;
+//var expense2 = new Expense(2);
+//expense2.Category = "Транспорт";
+//expense2.Description = "Грузовики";
+//expense2.Amount = 234500;
+//expense2.Date = DateTime.Now;
 
-expenses.Add(expense1);
-expenses.Add(expense2);
+//expenses.Add(expense1);
+//expenses.Add(expense2);
 
 while (true)
 {
@@ -38,18 +40,14 @@ while (true)
             Console.WriteLine("Нужно ввести число");
             continue;   
         }
+        var idfound = repository.GetById(id);
 
-        bool found = false;
-        foreach (var expense in expenses)
+        if (idfound != null)
         {
-            if (id == expense.Id)
-            {
-                Console.WriteLine($"{expense.Id}, {expense.Category}, {expense.Description}, {expense.Amount}, {expense.Date}");
-                found = true;
-            }
+            Console.WriteLine($"{idfound.Id}, {idfound.Category}, {idfound.Description}, {idfound.Amount}, {idfound.Date}");
         }
 
-        if (!found)
+        else
         {
             Console.WriteLine("Такого ID не существует");
         }
@@ -96,12 +94,12 @@ while (true)
 
         newExpense.Date = DateTime.Now;
 
-        expenses.Add(newExpense);   
+        repository.Add(newExpense);   
         Console.WriteLine("Трата добавлена.");
     }
     else if (choice == "3")
     {
-        foreach (var item in expenses)
+        foreach (var item in repository.GetAll())
         {
             Console.WriteLine(item);
         }
@@ -109,7 +107,7 @@ while (true)
 
     else if (choice == "4")
     {
-        var byCategory = expenses.GroupBy(x => x.Category);
+        var byCategory = repository.GetAll().GroupBy(x => x.Category);
 
         foreach (var item in byCategory)
         {
