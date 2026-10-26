@@ -4,20 +4,6 @@ var repository = new ExpenseRepository();
 
 List<Expense> expenses = new List<Expense>();
 
-//var expense1 = new Expense(1);
-//expense1.Category = "Еда";
-//expense1.Description = "Обед в столовой";
-//expense1.Amount = 100;
-//expense1.Date = DateTime.Now;
-
-//var expense2 = new Expense(2);
-//expense2.Category = "Транспорт";
-//expense2.Description = "Грузовики";
-//expense2.Amount = 234500;
-//expense2.Date = DateTime.Now;
-
-//expenses.Add(expense1);
-//expenses.Add(expense2);
 
 while (true)
 {
