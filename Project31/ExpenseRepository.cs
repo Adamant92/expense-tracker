@@ -70,5 +70,32 @@ namespace Project31
             return expenses;
 
         }
+
+        public Expense? GetById(int id)
+        {
+
+
+            using var connection = new SqliteConnection(_connectionString);
+            connection.Open();
+
+            var select = connection.CreateCommand();
+            select.CommandText = "SELECT Id , Category, Description, Amount, Date FROM Expenses WHERE Id = $id";
+            select.Parameters.AddWithValue("$id", id);
+
+            using var reader = select.ExecuteReader();
+            if (reader.Read())
+            {
+                var expense = new Expense();
+
+                expense.Id = reader.GetInt32(0);
+                expense.Category = reader.GetString(1);
+                expense.Description = reader.GetString(2);
+                expense.Amount = (decimal)reader.GetDouble(3);
+                expense.Date = DateTime.Parse(reader.GetString(4));
+                return expense;
+
+            }
+            return null;
+        }
     }
 }
