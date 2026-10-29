@@ -13,6 +13,7 @@ while (true)
     Console.WriteLine("2 - Добавить трату");   
     Console.WriteLine("3 - Показать все");
     Console.WriteLine("4 - Сумма расхода по категориям");
+    Console.WriteLine("5 - Удалить трату");
     Console.WriteLine("exit - Выход");
 
     string choice = Console.ReadLine().ToLower();  
@@ -83,6 +84,7 @@ while (true)
         repository.Add(newExpense);   
         Console.WriteLine("Трата добавлена.");
     }
+
     else if (choice == "3")
     {
         foreach (var item in repository.GetAll())
@@ -101,10 +103,36 @@ while (true)
         }
     }
 
+    else if (choice == "5")
+    {
+        Console.Write("Введите id: ");
+        if (!int.TryParse(Console.ReadLine(), out int id))
+        {
+            Console.WriteLine("Нужно ввести число");
+        }
+
+        Console.WriteLine("Вы уверены что хотиет удалить этот ID? (y/ -)");
+        string inputdel = Console.ReadLine();
+
+        if (inputdel.ToLower() == "y")
+        {
+            var idfound = repository.DeleteId(id);
+            if (idfound)
+            {
+                Console.WriteLine($"Элемент {id} был удалён!");
+            }
+            else
+            {
+                Console.WriteLine("Такого элемента не существует");
+            }
+        }
+    }
+
     else if (choice == "exit")
     {
         break;
     }
+
     else
     {
         Console.WriteLine("Нет такого пункта");

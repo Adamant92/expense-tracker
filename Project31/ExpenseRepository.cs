@@ -97,5 +97,19 @@ namespace Project31
             }
             return null;
         }
+
+        public bool DeleteId(int id)
+        {
+            using var connection = new SqliteConnection(_connectionString);
+            connection.Open();
+
+            var delete = connection.CreateCommand();
+
+            delete.CommandText = "DELETE FROM Expenses WHERE Id = $id";
+            delete.Parameters.AddWithValue("$id", id);
+
+           int rows = delete.ExecuteNonQuery();
+           return rows > 0;
+        }
     }
 }
